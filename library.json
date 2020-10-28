@@ -1,0 +1,24 @@
+{
+    "name": "pzem-004T-v3.0",
+    "frameworks": "arduino",
+    "keywords": "peacefair, pzem, power, meter, energy, monitor, v3.0, v30",
+    "description": "Interface communication library for Peacefair PZEM-004T v3.0 Power and Energy monitor",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/RDobrinov/pzem004T-v3.0"
+    },
+    "version": "1.0.3",
+    "license": "MIT",
+    "frameworks": "arduino",
+    "platforms": "espressif8266, espressif32",
+    "dependencies": [
+    ],
+    "authors": {
+        "name": "Rossen Dobrinov",
+        "email": "rossen.dobrinov@gmail.com",
+        "maintainer": true
+    },
+    "examples": [
+        "examples/*/*.ino"
+    ]
+}
