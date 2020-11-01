@@ -31,8 +31,8 @@
  *
 */
 
-#ifndef _PZEM004T_V3.0_H_
-#define _PZEM004T_V3.0_H_
+#ifndef _PZEM004T_V3_0_H_
+#define _PZEM004T_V3_0_H_
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
@@ -122,12 +122,12 @@
 
 using void_callback_f = void (*)();
 
-typedef struct rawRegisters_t {
+struct rawRegisters_t {
     uint16_t  InputReg[10];                     // Input register array
     uint16_t  HoldingReg[7];                    // Holding register array
 };
 
-typedef struct errorState_t {
+struct errorState_t {
     uint8_t rtuError;                           //Error state returned from RTU by error frame
     uint8_t inputError;                         //Error state after Input register reading
     uint8_t holdError;                          //Error state after Hold register reading
@@ -135,7 +135,7 @@ typedef struct errorState_t {
     uint16_t lastRegAddr;                       //Last used RTU register address
 };
 
-typedef struct rcvCtl_t {
+struct rcvCtl_t {
     uint8_t Bytes;                              // Expected number in response frame
     uint8_t receiveIndex;                       // Pointer to current receive buffer
     uint8_t receiveBuffer[PZEM_MAX_FRAME];      // Receive buffer
@@ -144,7 +144,7 @@ typedef struct rcvCtl_t {
 };
 
 #if _PZEM004T_DIAG_STATS_                       // For error stats colection - default: Disabled
-typedef struct diagStats_t {
+struct diagStats_t {
     uint32_t  RTUTimeout;                       // Number of RTU timeouts
     uint32_t  RTUCRCFail;                       // Number of CRC failed frames
     uint32_t  RTUErrorFrame;                    // Number of received error frames from device
@@ -225,4 +225,4 @@ class PZEM004Tv30
         bool _modbusCRC16(uint8_t *rtuFrame, uint8_t bytes, bool set=false);
 };
 
-#endif // _PZEM004T_V3.0_H_
+#endif // _PZEM004T_V3_0_H_

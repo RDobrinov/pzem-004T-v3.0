@@ -489,7 +489,8 @@ void PZEM004Tv30::_sendCommand(uint8_t modbusRTUCommand, uint16_t regAddress, ui
     _err.lastRegAddr = regAddress;
 
     _rx.lastRcv = millis();
-    _rx.lastUpdate = millis();
+    if( modbusRTUCommand == PZEM_CMD_READ_HOLD_REG ) 
+        _rx.lastUpdate = millis();
 
     while( (_rx.receiveIndex < _rx.Bytes) && !((millis()-_rx.lastRcv) > PZEM_READ_TIMEOUT))
     {
