@@ -119,6 +119,7 @@
 #define PZEM_UPDATE_INTERVAL        150         // Minimal time for update values from input registers
 #define PZEM_READ_TIMEOUT           50          // Initial time for response
 #define PZEM_BAUD_RATE              9600        // Communication speed for interface
+#define PZEM_UART_CONFIG            SERIAL_8N1
 
 using void_callback_f = void (*)();
 
@@ -164,8 +165,13 @@ enum txStates { NOT_EXPIRED, NOT_NOP_COMMAND, READY };  // Transmit states
 class PZEM004Tv30
 {
     public:
-
+        #if defined(ARDUINO_ARCH_ESP32)
+        //#pragma message ( "ESP32 Architecture Selected" )
+        PZEM004Tv30(HardwareSerial* hwSerial, int8_t rx_pin=-1, int8_t tx_pin=-1, uint8_t modbus_addr=PZEM_MODBUS_GLOBAL_ADDRESS);
+        #else
         PZEM004Tv30(HardwareSerial* hwSerial, uint8_t modbus_addr=PZEM_MODBUS_GLOBAL_ADDRESS);
+        #endif /* ARDUINO_ARCH_ESP32 */
+
         #if _PZEM004T_USE_SS_
         PZEM004Tv30(uint8_t rxPin, uint8_t txPin, uint8_t modbus_addr=PZEM_MODBUS_GLOBAL_ADDRESS);
         #endif

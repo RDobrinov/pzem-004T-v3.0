@@ -37,11 +37,22 @@
  * @param hwSerial Hardware serial to use
  * @param modbus_addr RTU address of pzem device
 */
+#if defined(ARDUINO_ARCH_ESP32)
+PZEM004Tv30::PZEM004Tv30(HardwareSerial* hwSerial, int8_t rx_pin, int8_t tx_pin, uint8_t modbus_addr)
+#else
 PZEM004Tv30::PZEM004Tv30(HardwareSerial* hwSerial, uint8_t modbus_addr)
+#endif
 {
     this->_serial = hwSerial;
     this->_softSerial = false;
+    #if defined(ARDUINO_ARCH_ESP32)
+    if((rx_pin<0) || (tx_pin<0))
+        static_cast<HardwareSerial*>(_serial)->begin(PZEM_BAUD_RATE);
+    else
+        static_cast<HardwareSerial*>(_serial)->begin(PZEM_BAUD_RATE, PZEM_UART_CONFIG, rx_pin, tx_pin);
+    #else
     static_cast<HardwareSerial*>(_serial)->begin(PZEM_BAUD_RATE);
+    #endif
     _initDrv(modbus_addr);
 }
 
